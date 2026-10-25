@@ -1,18 +1,16 @@
 name: Connect to JFrog
 
-on:
-  push:
+on: [push]
 
 permissions:
-  id-token: write   # Generates GitHub's OIDC token
+  id-token: write   # Required for GitHub OIDC token generation
   contents: read
 
 jobs:
   connect:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v4
@@ -20,6 +18,3 @@ jobs:
           JF_URL: https://trialbg9hhl.jfrog.io
         with:
           oidc-provider-name: github-oidc-demo
-
-      - name: Ping JFrog
-        run: jf rt ping
