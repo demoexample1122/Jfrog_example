@@ -4,7 +4,7 @@ on:
   push:
 
 permissions:
-  id-token: write
+  id-token: write   # Generates GitHub's OIDC token
   contents: read
 
 jobs:
@@ -17,10 +17,9 @@ jobs:
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v4
         env:
-          JF_URL: https://trialbg9hhl.jfrog.io
+          JF_URL: ${{ vars.JF_URL }}
         with:
-          oidc-provider-name: github-oidc-example1
+          oidc-provider-name: github-oidc-demo
 
       - name: Ping JFrog
         run: jf rt ping
-        
